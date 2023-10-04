@@ -1,0 +1,33 @@
+
+import java.util.*;
+public class knapsack {
+   static int take,nottake;
+    public static void main(String[] args)
+    {
+    
+        Scanner in = new Scanner(System.in);
+        int[] a = new int[]{3,2,7,4,4,2};
+        int[] w= new int[]{10,20,3,4,4,7};
+
+        System.out.println(finds(a,w,0,a.length-1,6));
+     
+
+    }
+    public static int  finds(int[] a,int[] w,int ind,int n,int limit)
+    {
+        if(ind==0)
+        {
+            if(w[ind]<=limit)
+            {
+                return a[ind];
+            }
+        }
+          if(ind<=n)
+          {
+            take= a[ind]+ finds(a,w,ind+1,n,limit-w[ind]);
+          }
+           nottake=finds(a,w,ind+1,n,limit);
+
+           return Math.min(take,nottake);
+    }
+}

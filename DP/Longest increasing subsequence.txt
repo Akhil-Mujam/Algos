@@ -1,0 +1,98 @@
+class Solution 
+{
+    
+    //TABULATION
+      static int longestSubsequence(int size, int nums[])
+    {
+        // code here
+        
+        
+        
+        
+        
+        int len=0;
+ int[][] dp = new int[nums.length+1][nums.length+1];
+    for(int ind=nums.length-1;ind>=0;ind--)
+    {
+       
+        for(int prev_ind = ind-1;prev_ind>=-1;prev_ind--)
+        {
+             len = dp[ind+1][prev_ind+1];
+             if(prev_ind==-1 || nums[ind]>nums[prev_ind])
+                len= Math.max(len,1+dp[ind+1][ind+1]);
+
+                  dp[ind][prev_ind+1]=len;
+        }
+      
+    }
+          
+
+return dp[0][0];
+        
+    }
+    
+    
+    //MEMOIZATION
+    //Function to find length of longest increasing subsequence.
+    static int longestSubsequence(int size, int nums[])
+    {
+        // code here
+        
+        
+        
+        
+        
+        int len=0;
+ int[][] dp = new int[nums.length+1][nums.length+1];
+    for(int ind=nums.length-1;ind>=0;ind--)
+    {
+       
+        for(int prev_ind = ind-1;prev_ind>=-1;prev_ind--)
+        {
+             len = dp[ind+1][prev_ind+1];
+             if(prev_ind==-1 || nums[ind]>nums[prev_ind])
+                len= Math.max(len,1+dp[ind+1][ind+1]);
+
+                  dp[ind][prev_ind+1]=len;
+        }
+      
+    }
+          
+
+return dp[0][0];
+        
+        
+        
+        
+        
+        
+        
+        
+        int[][] dp = new int[size+1][size+1];
+        for(int[] arr: dp)
+          Arrays.fill(arr,-1);
+          
+        return finds(0,size-1,a,-1,dp);
+    }
+    static int finds(int ind,int n,int[] a,int prev,int[][] dp)
+    {
+        if(ind>n)
+        {
+            return 0;
+        }
+        int take=0;
+        if(dp[prev+1][ind]!=-1)
+        {
+            return dp[prev+1][ind];
+        }
+        
+        if(prev==-1 || a[prev] < a[ind])
+        {
+            take = 1+finds(ind+1,n,a,ind,dp);
+        }
+        
+        int nottake = finds(ind+1,n,a,prev,dp);
+        
+        return dp[prev+1][ind] = Math.max(take,nottake);
+    }
+} 

@@ -1,0 +1,36 @@
+class Solution 
+{ 
+    //Function to return max value that can be put in knapsack of capacity W.
+    static int knapSack(int W, int wt[], int val[], int n) 
+    { 
+         // your code here 
+         int[][] dp =new int[n+1][W+1];
+         for(int[] a: dp)
+           Arrays.fill(a,-1);
+           
+        return finds(0,W,wt,val,n,dp);
+    } 
+    
+    static int finds(int ind, int W,int[] wt,int[] val,int n,int[][] dp)
+    {
+        if(ind>=n)
+        {
+            return 0;
+        }
+        
+        if(dp[ind][W]!=-1)
+        {
+             return dp[ind][W];
+        }
+        int take = 0;
+        if(wt[ind]<=W)
+        {
+            take=val[ind]+finds(ind+1,W-wt[ind],wt,val,n,dp);
+        }
+        
+        int nottake = finds(ind+1,W,wt,val,n,dp);
+        
+        return dp[ind][W] = Math.max(take,nottake);
+        
+    }
+}

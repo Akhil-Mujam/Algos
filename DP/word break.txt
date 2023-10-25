@@ -1,0 +1,49 @@
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) 
+    {
+        int[] dp = new int[s.length()+1];
+        Arrays.fill(dp,-1);
+        HashSet<String> h = new HashSet<>();
+        for(String x : wordDict)
+        {
+            h.add(x);
+        }
+        return findAns(0,s,h,dp);
+    }
+    public static boolean findAns(int index,String s,HashSet<String> wordDict,int[] dp)
+    {
+        if(index>=s.length())
+        {
+            return true;
+        }
+        if(wordDict.contains(s)==true)
+        {
+            return true;
+        }
+        if(dp[index]!=-1)
+        {
+            if(dp[index]==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        for(int i=index+1;i<=s.length();i++)
+        {
+            String sub = s.substring(index,i);
+            if(wordDict.contains(sub)==true)
+            {
+                if(findAns(i,s,wordDict,dp)==true)
+                {
+                    dp[index] = 1;
+                    return true;
+                }
+            }
+        }
+        dp[index] = 0;
+        return false;
+    }
+}
